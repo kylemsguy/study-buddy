@@ -4,5 +4,8 @@
     <string name="app_name">StudyBuddy</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_course_acticity">CourseActicity</string>
+    <string name="title_activity_list_name">ListNameActivity</string>
+    <string name="title_activity_chat">ChatActivity</string>
 
 </resources>
