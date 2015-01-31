@@ -28,6 +28,10 @@
             android:name=".ChatActivity"
             android:label="@string/title_activity_chat" >
         </activity>
+        <activity
+            android:name=".GpPTracker"
+            android:label="@string/title_activity_gp_ptracker" >
+        </activity>
     </application>
 
     <!-- Permssions -->
