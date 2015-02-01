@@ -37,6 +37,12 @@ def register_user(request):
 	return HttpResponse(json.dumps(user.json_dict()))
 
 @csrf_exempt
+def list_courses(request):
+	""" Outputs a JSON list of all courses with relevant information """
+	response_data = [course.json_dict() for course in Course.objects.all()]
+	return HttpResponse(json.dumps(response_data), content_type='application/json')
+
+@csrf_exempt
 @require_POST
 def add_courses(request):
 	""" Adds the given user to the given courses in a comma-separated list of course codes,
@@ -54,7 +60,19 @@ def add_courses(request):
 		return HttpResponse('No such user', status=400)
 
 	course_codes = courses_str.split(',')
-	course = Courses.objects.filter(code__in=course_codes)
 
+	# Fetch existing courses
+	courses = {course.code: course for course in Course.objects.filter(code__in=course_codes)}
 
-	return HttpResponse(json.dumps([course.json_dict() for course in courses]))
+	# Create new courses
+	for code in course_codes:
+		if code not in courses:
+			courses[code] = Course(code=code)
+			courses[code].save()
+
+	# Add user to selected courses
+	for code in courses:
+		if user not in courses[code].users.all():
+			courses[code].users.add(user)
+
+	return HttpResponse(json.dumps([code for code in courses]), content_type='application/json')

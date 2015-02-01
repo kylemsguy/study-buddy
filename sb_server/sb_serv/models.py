@@ -34,7 +34,7 @@ class Course(models.Model):
 	def json_dict(self):
 		return {
 			'code': self.code,
-			'users': [user.json_dict for user in self.users]
+			'users': [user.json_dict() for user in self.users.all()]
 		}
 
 class Conversation(models.Model):
