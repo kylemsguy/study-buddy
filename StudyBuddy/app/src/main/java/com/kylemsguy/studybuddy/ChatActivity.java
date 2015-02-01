@@ -20,7 +20,7 @@ public class ChatActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chat2);
+        setContentView(R.layout.activity_chat);
         cm = new ConnectionManager();
         nearbyUsers = getIntent().getExtras().getIntegerArrayList("server_ids");
         SharedPreferences prefs = getSharedPreferences(ChatActivity.class.getSimpleName(),
