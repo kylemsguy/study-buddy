@@ -2,13 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cedd8495-7871-4dc0-b017-d5f2929039a5" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/StudyBuddy/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/StudyBuddy/app/src/main/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/StudyBuddy/app/src/main/res/layout/activity_chat.xml" afterPath="$PROJECT_DIR$/StudyBuddy/app/src/main/res/layout/activity_chat.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/StudyBuddy/app/src/main/res/layout/activity_course_acticity.xml" afterPath="$PROJECT_DIR$/StudyBuddy/app/src/main/res/layout/activity_course_acticity.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/StudyBuddy/app/src/main/res/layout/activity_list_name.xml" afterPath="$PROJECT_DIR$/StudyBuddy/app/src/main/res/layout/activity_list_name.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/StudyBuddy/app/src/main/res/layout/activity_main.xml" afterPath="$PROJECT_DIR$/StudyBuddy/app/src/main/res/layout/activity_main.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/StudyBuddy/app/app.iml" afterPath="$PROJECT_DIR$/StudyBuddy/app/app.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/StudyBuddy/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/StudyBuddy/app/src/main/res/values/strings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="study-buddy.iws" />
@@ -35,7 +28,7 @@
       <file leaf-file-name="MainActivity.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/StudyBuddy/app/src/main/java/com/kylemsguy/studybuddy/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-3.0" vertical-offset="0" max-vertical-offset="630">
+            <state vertical-scroll-proportion="0.0" vertical-offset="120" max-vertical-offset="675">
               <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
               <folding />
             </state>
@@ -45,8 +38,8 @@
       <file leaf-file-name="GPSTracker.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/StudyBuddy/app/src/main/java/com/kylemsguy/studybuddy/GPSTracker.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.17021276" vertical-offset="0" max-vertical-offset="5655">
-              <caret line="38" column="17" selection-start-line="38" selection-start-column="17" selection-end-line="38" selection-end-column="17" />
+            <state vertical-scroll-proportion="6.5832105" vertical-offset="0" max-vertical-offset="5655">
+              <caret line="334" column="26" selection-start-line="334" selection-start-column="22" selection-end-line="334" selection-end-column="26" />
               <folding />
             </state>
           </provider>
@@ -102,16 +95,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="ProjectPane">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="study-buddy" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
       <pane id="Scope">
         <subPane subId="Project Files">
           <PATH>
@@ -241,6 +224,16 @@
       </pane>
       <pane id="PackagesPane">
         <subPane />
+      </pane>
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="study-buddy" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
       </pane>
     </panes>
   </component>
@@ -443,6 +436,22 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/StudyBuddy/app/src/main/java/com/kylemsguy/studybuddy/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="675">
+          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/StudyBuddy/app/src/main/java/com/kylemsguy/studybuddy/GPSTracker.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="120" max-vertical-offset="5655">
+          <caret line="38" column="17" selection-start-line="38" selection-start-column="17" selection-end-line="38" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/StudyBuddy/app/src/main/java/com/kylemsguy/studybuddy/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="75" max-vertical-offset="630">
           <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
           <folding />
@@ -451,7 +460,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/StudyBuddy/app/src/main/java/com/kylemsguy/studybuddy/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.0" vertical-offset="0" max-vertical-offset="630">
+        <state vertical-scroll-proportion="0.0" vertical-offset="120" max-vertical-offset="675">
           <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
           <folding />
         </state>
@@ -459,8 +468,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/StudyBuddy/app/src/main/java/com/kylemsguy/studybuddy/GPSTracker.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.17021276" vertical-offset="0" max-vertical-offset="5655">
-          <caret line="38" column="17" selection-start-line="38" selection-start-column="17" selection-end-line="38" selection-end-column="17" />
+        <state vertical-scroll-proportion="6.5832105" vertical-offset="0" max-vertical-offset="5655">
+          <caret line="334" column="26" selection-start-line="334" selection-start-column="22" selection-end-line="334" selection-end-column="26" />
           <folding />
         </state>
       </provider>
