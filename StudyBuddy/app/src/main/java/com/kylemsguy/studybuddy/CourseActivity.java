@@ -6,12 +6,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 
-public class CourseActicity extends ActionBarActivity {
+public class CourseActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_course_acticity);
+        setContentView(R.layout.activity_course_activity);
     }
 
 
