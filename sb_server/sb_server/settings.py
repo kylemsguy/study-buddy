@@ -83,3 +83,4 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+GCM_API_KEY = 'AIzaSyC9G12demaN1aDlLU0sk3BxoybcaCvP5KI'

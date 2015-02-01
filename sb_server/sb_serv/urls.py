@@ -11,4 +11,8 @@ urlpatterns = patterns('',
     url(r'^add_courses/$', views.add_courses, name='add_courses'),
     url(r'^close_users/(?P<courses>[a-zA-Z0-9,]+)/(?P<lat>-?\d+\.?\d*)/(?P<lon>-?\d+\.?\d*)/(?P<dist>\d+)/$',
     	views.close_users, name='close_users'),
+    url(r'^new_conversation/$', views.new_conversation, name='new_conversation'),
+    url(r'^list_conversations/$', views.list_conversations, name='list_conversations'),
+    url(r'^add_to_conversation/$', views.add_to_conversation, name='add_to_conversation'),
+    url(r'^post_message/$', views.post_message, name='post_message'),
 )
