@@ -9,8 +9,10 @@ import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
+import java.util.List;
 import android.view.Menu;
 import android.view.MenuItem;
+
 
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,10 +39,15 @@ public class CourseActivity extends ActionBarActivity implements View.OnClickLis
     public static final String PROPERTY_REG_ID = "registration_id";
     private static final String PROPERTY_APP_VERSION = "appVersion";
     private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
-    private Button one, two, three, four, zero;
+    private Button one;
+    private Button two;
+    private Button three;
+    private Button four;
+    private Button zero;
 
     private String SENDER_ID = "505286379749";
     private ConnectionManager cm;
+
 
     /**
      * Tag used on log messages.
@@ -70,16 +77,29 @@ public class CourseActivity extends ActionBarActivity implements View.OnClickLis
 
 
         //button
+        getCalendarEvents();
         Button one = (Button) findViewById(R.id.one);
-        one.setText("a");
+        one.setText("CSC324");
+        one.setOnClickListener((View.OnClickListener) this);
         Button four = (Button) findViewById(R.id.four);
-        four.setText("b");
+        four.setText("CSC411");
+        four.setOnClickListener((View.OnClickListener) this);
         Button two = (Button) findViewById(R.id.two);
-        two.setText("c");
+        two.setText("CSC384");
+        two.setOnClickListener((View.OnClickListener) this);
         Button three = (Button) findViewById(R.id.three);
-        three.setText("d");
+        three.setText("CSC336");
+        three.setOnClickListener((View.OnClickListener) this);
         Button zero = (Button) findViewById(R.id.zero);
-        zero.setText("d");
+        zero.setText("CSC343");
+        zero.setOnClickListener((View.OnClickListener) this);
+
+
+
+
+
+
+
 
 
 
@@ -270,10 +290,26 @@ public class CourseActivity extends ActionBarActivity implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
-        if (v == one ||v == zero||v==two||v==three||v==four ){
-            Intent intent = new Intent(this, ChatActivity.class);
+        if (v == one ){
+            Intent intent = new Intent(this,ChatActivity.class);
             startActivityForResult(intent, 0);
-
+        }
+        if (v == two ){
+            Intent intent = new Intent(this,ChatActivity.class);
+            startActivityForResult(intent, 0);
+        }
+        if (v == three ){
+            Intent intent = new Intent(this,ChatActivity.class);
+            startActivityForResult(intent, 0);
+        }
+        if (v == four ){
+            Intent intent = new Intent(this,ChatActivity.class);
+            startActivityForResult(intent, 0);
+        }
+        if (v == zero ){
+            Intent intent = new Intent(this,ChatActivity.class);
+            startActivityForResult(intent, 0);
         }
     }
+
 }
