@@ -157,7 +157,7 @@ public class ConnectionManager {
         for(String course: courses) {
             JSONArray ary = respJson.getJSONArray(course);
             for (int i = 0; i < ary.length(); i++) {
-                JSONObject item = ary[i];
+                JSONObject item = ary.getJSONObject(i);
                 closePeople.add(item.getInt("id"));
             }
         }
