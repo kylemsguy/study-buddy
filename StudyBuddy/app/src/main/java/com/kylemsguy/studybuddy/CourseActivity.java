@@ -29,6 +29,7 @@ import com.google.api.services.calendar.model.Events;
 import com.kylemsguy.studybuddy.backend.ConnectionManager;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 
@@ -38,10 +39,15 @@ public class CourseActivity extends ActionBarActivity implements View.OnClickLis
     public static final String PROPERTY_REG_ID = "registration_id";
     private static final String PROPERTY_APP_VERSION = "appVersion";
     private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
-    private Button one, two, three, four, zero;
+    private Button one;
+    private Button two;
+    private Button three;
+    private Button four;
+    private Button zero;
 
     private String SENDER_ID = "505286379749";
     private ConnectionManager cm;
+
 
     /**
      * Tag used on log messages.

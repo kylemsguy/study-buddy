@@ -4,6 +4,7 @@ import android.content.SharedPreferences;
 
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -12,6 +13,8 @@ import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by kyle on 01/02/15.
@@ -132,7 +135,7 @@ public class ConnectionManager {
 
     }
 
-    public void getNearbyUsers(String[] courses, double latitude, double longitude, int radius) throws Exception {
+    public List<Integer> getNearbyUsers(String[] courses, double latitude, double longitude, int radius) throws Exception {
         StringBuilder sb = new StringBuilder();
         for(String course: courses){
             sb.append(course);
@@ -149,6 +152,16 @@ public class ConnectionManager {
 
         //TODO finish writing this
 
+        List<Integer> closePeople = new ArrayList<Integer>();
+
+        for(String course: courses) {
+            JSONArray ary = respJson.getJSONArray(course);
+            for (int i = 0; i < ary.length(); i++) {
+                JSONObject item = ary[i];
+                closePeople.add(item.getInt("id"));
+            }
+        }
+        return closePeople;
     }
 
     // HTTP GET request
