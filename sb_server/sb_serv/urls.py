@@ -9,4 +9,6 @@ urlpatterns = patterns('',
     url(r'^update_coords/$', views.update_coords, name='update_coords'),
     url(r'^list_courses/$', views.list_courses, name='list_courses'),
     url(r'^add_courses/$', views.add_courses, name='add_courses'),
+    url(r'^close_users/(?P<courses>[a-zA-Z0-9,]+)/(?P<lat>-?\d+\.?\d*)/(?P<lon>-?\d+\.?\d*)/(?P<dist>\d+)/$',
+    	views.close_users, name='close_users'),
 )

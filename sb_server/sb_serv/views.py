@@ -9,6 +9,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 
 from sb_serv.models import User, Course
+from sb_serv.utils import lat_lon_dist
 
 
 @csrf_exempt
@@ -55,7 +56,7 @@ def update_coords(request):
 	user.lat = float(lat)
 	user.lon = float(lon)
 	user.save()
-	
+
 	return HttpResponse()
 
 @csrf_exempt
@@ -98,3 +99,25 @@ def add_courses(request):
 			courses[code].users.add(user)
 
 	return HttpResponse(json.dumps([code for code in courses]), content_type='application/json')
+
+@csrf_exempt
+def close_users(request, courses, lat, lon, dist):
+	""" Returns a JSON list of users in the given (comma-separated) list of courses, within
+		the given distance of the coordinates. """
+	lat = float(lat)
+	lon = float(lon)
+	dist = int(dist)
+
+	course_codes = courses.split(',')
+	courses = [course for course in Course.objects.filter(code__in=course_codes)]
+
+	response_data = {}
+	for course in courses:
+		near_users_json = []
+		# Filter users based on distance
+		for user in course.users.all():
+			if lat_lon_dist(lat, lon, user.lat, user.lon) <= dist:
+				near_users_json.append(user.json_dict())
+		response_data[course.code] = near_users_json
+
+	return HttpResponse(json.dumps(response_data), content_type='application/json')
