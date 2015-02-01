@@ -41,6 +41,7 @@ public class ListCalendarsTask extends AsyncTask<Void, Void, List<CalendarListEn
      */
     @Override
     protected List<CalendarListEntry> doInBackground(Void... params) {
+        List<CalendarListEntry> allItems = null;
         try {
             String token = fetchToken();
             if (token != null) {
@@ -50,7 +51,7 @@ public class ListCalendarsTask extends AsyncTask<Void, Void, List<CalendarListEn
                 Calendar service = new Calendar.Builder(AndroidHttp.newCompatibleTransport(), jsonFactory, credential)
                         .setApplicationName("StudyBuddy").build();
                 String pageToken = null;
-                List<CalendarListEntry> allItems = new ArrayList<CalendarListEntry>();
+                allItems = new ArrayList<CalendarListEntry>();
 
                 do {
                     CalendarList calendarList = service.calendarList().list()
@@ -71,7 +72,7 @@ public class ListCalendarsTask extends AsyncTask<Void, Void, List<CalendarListEn
             // TODO something went wrong q_q
             e.printStackTrace();
         }
-        return null;
+        return allItems;
     }
 
     /**

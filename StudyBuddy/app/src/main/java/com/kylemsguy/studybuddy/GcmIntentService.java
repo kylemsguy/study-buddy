@@ -61,7 +61,14 @@ public class GcmIntentService extends IntentService {
                 }
                 Log.i(TAG, "Completed work @ " + SystemClock.elapsedRealtime());
                 // Post notification of received message.
-                sendNotification("Received: " + extras.toString());
+                StringBuilder sb = new StringBuilder();
+                sb.append("Message from ");
+                sb.append(extras.getString("author"));
+                sb.append(": ");
+                sb.append(extras.getString("the_message"));
+
+                //sendNotification("Received: " + extras.toString());
+                sendNotification(sb.toString());
                 Log.i(TAG, "Received: " + extras.toString());
             }
         }
@@ -82,7 +89,7 @@ public class GcmIntentService extends IntentService {
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
                         .setSmallIcon(R.mipmap.ic_stat_gcm)
-                        .setContentTitle("GCM Notification")
+                        .setContentTitle("StudyBuddyFinder")
                         .setStyle(new NotificationCompat.BigTextStyle()
                                 .bigText(msg))
                         .setContentText(msg);
