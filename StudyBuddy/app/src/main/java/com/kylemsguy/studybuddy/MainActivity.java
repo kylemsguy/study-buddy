@@ -24,6 +24,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.util.*;
 
 import com.google.android.gms.common.AccountPicker;
 
@@ -38,11 +39,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private EditText mEdit;
     private TextView mText;
     public static final String MyPREFERENCES = "MyPrefs" ;
-    TextView name ;
+    TextView name;
 
     SharedPreferences sharedpreferences;
-
-    AsyncTask getevents = null;
 
     //Tracker class for gps
     GPSTracker gps;
