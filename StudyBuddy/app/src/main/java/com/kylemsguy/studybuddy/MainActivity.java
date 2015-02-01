@@ -20,8 +20,15 @@ import com.kylemsguy.studybuddy.backend.GPSTracker;
 
 import android.view.View;
 import android.widget.Toast;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
+import android.util.*;
 
 import com.google.android.gms.common.AccountPicker;
+
+import java.util.concurrent.ExecutionException;
 
 
 public class MainActivity extends Activity implements View.OnClickListener {
@@ -29,8 +36,12 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private Button btnShowLocation;
     private Button btnCourses;
     private boolean flag = false;
+    private EditText mEdit;
+    private TextView mText;
+    public static final String MyPREFERENCES = "MyPrefs" ;
+    TextView name;
 
-    AsyncTask getcalendars = null;
+    SharedPreferences sharedpreferences;
 
     //Tracker class for gps
     GPSTracker gps;
@@ -52,9 +63,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
         setContentView(R.layout.activity_main);
         cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 
+
         btnCourses = (Button) findViewById(R.id.courses);
         btnCourses.setOnClickListener((View.OnClickListener) this);
 
+        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
         btnShowLocation = (Button) findViewById(R.id.btnShowLocation);
         btnShowLocation.setOnClickListener(new View.OnClickListener() {
 
@@ -111,7 +124,13 @@ public class MainActivity extends Activity implements View.OnClickListener {
             pickUserAccount();
         } else {
             if (isDeviceOnline()) {
-                getcalendars = new ListCalendarsTask(MainActivity.this, mEmail, mScopes).execute();
+                try {
+                    ((SBApp) getApplication()).
+                            setEvents(new GetCalendarDataTask(MainActivity.this, mEmail, mScopes)
+                                    .execute().get());
+                } catch(ExecutionException | InterruptedException e) {
+                    e.printStackTrace();
+                }
             } else {
                 Toast.makeText(this, R.string.not_online, Toast.LENGTH_LONG).show();
             }
@@ -164,13 +183,16 @@ public class MainActivity extends Activity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if (v == btnCourses && !flag){
-            System.out.println("courses and registerd");
+            System.out.println("courses registerd");
+            mEdit   = (EditText)findViewById(R.id.user);
+            name = (TextView) findViewById(R.id.user);
             Intent intent = new Intent(this, CourseActivity.class);
             startActivityForResult(intent, 0);
         }
         if (v == btnCourses && flag){
-            System.out.println("courses and not registered");
-            Toast.makeText(getApplicationContext(), "You need to register to start!!!!!!!", Toast.LENGTH_LONG).show();
+            System.out.println("courses and not  registered");
+            mEdit   = (EditText)findViewById(R.id.user);
+           Toast.makeText(getApplicationContext(), "You need to register to start!!!!!!!" + mEdit.getText().toString(), Toast.LENGTH_LONG).show();
         }
     }
 }

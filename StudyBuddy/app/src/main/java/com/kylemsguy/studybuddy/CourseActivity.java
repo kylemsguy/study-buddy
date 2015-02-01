@@ -1,7 +1,7 @@
 package com.kylemsguy.studybuddy;
 
-import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -9,25 +9,36 @@ import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
+import java.util.List;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
 
+
+import android.widget.TextView;
+import android.widget.Toast;
+
+import android.view.View;
+import android.widget.Button;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
+
+import com.google.api.services.calendar.model.Event;
+import com.google.api.services.calendar.model.Events;
+
 import com.kylemsguy.studybuddy.backend.ConnectionManager;
 
 import java.io.IOException;
 import java.util.concurrent.atomic.AtomicInteger;
 
 
-public class CourseActivity extends ActionBarActivity {
+public class CourseActivity extends ActionBarActivity implements View.OnClickListener {
 
     public static final String EXTRA_MESSAGE = "message";
     public static final String PROPERTY_REG_ID = "registration_id";
     private static final String PROPERTY_APP_VERSION = "appVersion";
     private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
+    private Button one, two, three, four, zero;
 
     private String SENDER_ID = "505286379749";
     private ConnectionManager cm;
@@ -44,13 +55,47 @@ public class CourseActivity extends ActionBarActivity {
 
     String regid;
 
+    List<Event> events = null;
+
+    public void getCalendarEvents(){
+        events = ((SBApp) getApplication()).getEvents();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_course_activity);
+        setContentView(R.layout.activity_course);
 
         context = getApplicationContext();
         cm = new ConnectionManager();
+
+
+        //button
+        getCalendarEvents();
+        Button one = (Button) findViewById(R.id.one);
+        one.setText("CSC324");
+        one.setOnClickListener((View.OnClickListener) this);
+        Button four = (Button) findViewById(R.id.four);
+        four.setText("CSC411");
+        four.setOnClickListener((View.OnClickListener) this);
+        Button two = (Button) findViewById(R.id.two);
+        two.setText("CSC384");
+        two.setOnClickListener((View.OnClickListener) this);
+        Button three = (Button) findViewById(R.id.three);
+        three.setText("CSC336");
+        three.setOnClickListener((View.OnClickListener) this);
+        Button zero = (Button) findViewById(R.id.zero);
+        zero.setText("CSC343");
+        zero.setOnClickListener((View.OnClickListener) this);
+
+
+
+
+
+
+
+
+
 
         // Check device for Play Services APK. If check succeeds, proceed with
         //  GCM registration.
@@ -236,4 +281,29 @@ public class CourseActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    public void onClick(View v) {
+        if (v == one ){
+            Intent intent = new Intent(this,ChatActivity.class);
+            startActivityForResult(intent, 0);
+        }
+        if (v == two ){
+            Intent intent = new Intent(this,ChatActivity.class);
+            startActivityForResult(intent, 0);
+        }
+        if (v == three ){
+            Intent intent = new Intent(this,ChatActivity.class);
+            startActivityForResult(intent, 0);
+        }
+        if (v == four ){
+            Intent intent = new Intent(this,ChatActivity.class);
+            startActivityForResult(intent, 0);
+        }
+        if (v == zero ){
+            Intent intent = new Intent(this,ChatActivity.class);
+            startActivityForResult(intent, 0);
+        }
+    }
+
 }

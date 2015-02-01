@@ -23,7 +23,7 @@ import java.util.List;
 /**
  * Created by kyle on 31/01/15.
  */
-public class GetCalendarDataTask extends AsyncTask<String, Void, List<Event>> {
+public class GetCalendarDataTask extends AsyncTask<Void, Void, List<Event>> {
     Activity mActivity;
     String mScope;
     String mEmail;
@@ -41,7 +41,7 @@ public class GetCalendarDataTask extends AsyncTask<String, Void, List<Event>> {
      * on the AsyncTask instance.
      */
     @Override
-    protected List<Event> doInBackground(String... params) {
+    protected List<Event> doInBackground(Void... params) {
         try {
             String token = fetchToken();
             if (token != null) {
@@ -56,7 +56,8 @@ public class GetCalendarDataTask extends AsyncTask<String, Void, List<Event>> {
 
                 // Iterate over the events in the specified calendar
                 do {
-                    Events events = service.events().list(params[0]).setPageToken(pageToken).execute();
+                    // change primary to params[0] to use special string
+                    Events events = service.events().list("primary").setPageToken(pageToken).execute();
                     List<Event> items = events.getItems();
                     for (Event event : items) {
                         allItems.add(event);

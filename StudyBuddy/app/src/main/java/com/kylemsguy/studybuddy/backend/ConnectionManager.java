@@ -82,11 +82,53 @@ public class ConnectionManager {
         sendPost(BASE_URL + "register_user/", paramData.toString());
     }
 
-    public void startConvo(String[] server_ids){
+    public String startConvo(String name) throws Exception{
+        String url = BASE_URL + "new_conversation/";
+        JSONObject paramData = new JSONObject();
+
+        try {
+            paramData.put("name", name);
+
+        } catch (JSONException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        // returns convo id
+        return sendPost(url, paramData.toString());
 
     }
 
-    public void sendMessage(String convo_id, String message){
+    public void addUsertoConvo(String convoId, String userId) throws Exception {
+        String url = BASE_URL + "add_to_conversation/";
+
+        JSONObject paramData = new JSONObject();
+
+        try {
+            paramData.put("convo_id", convoId);
+            paramData.put("user_id", userId);
+
+        } catch (JSONException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        sendPost(url, paramData.toString());
+    }
+
+    public void sendMessage(String convo_id, String author, String message) throws Exception {
+        String url = BASE_URL + "post_message/";
+
+        JSONObject paramData = new JSONObject();
+
+        try {
+            paramData.put("conv_id", convo_id);
+            paramData.put("author", author);
+            paramData.put("content", message);
+        } catch (JSONException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        sendPost(url, paramData.toString());
 
     }
 

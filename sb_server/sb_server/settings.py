@@ -36,7 +36,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'sb_serv'
+    'sb_serv',
+    'gcm'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -83,4 +84,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+<<<<<<< HEAD
 GCM_API_KEY = 'AIzaSyC9G12demaN1aDlLU0sk3BxoybcaCvP5KI'
+=======
+GCM_APIKEY = 'AIzaSyC9G12demaN1aDlLU0sk3BxoybcaCvP5KI'
+GCM_DEVICE_MODEL = 'sb_serv.models.SBDevice'
+
+>>>>>>> e3ac978a0040c1faf067677938eb4d61d3b773c8
