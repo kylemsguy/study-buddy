@@ -9,13 +9,26 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
+
+import com.kylemsguy.studybuddy.backend.GPSTracker;
+
 import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.common.AccountPicker;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends Activity {
+
+    Button btnShowLocation;
+
+    //Tracker class for gps
+    GPSTracker gps;
 
     static final int REQUEST_CODE_PICK_ACCOUNT = 1000;
     private static final String USERINFO_SCOPE =
@@ -33,6 +46,31 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        btnShowLocation = (Button) findViewById(R.id.btnShowLocation);
+        btnShowLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                // create class object
+                gps = new GPSTracker(MainActivity.this);
+
+                // check if GPS enabled
+                if (gps.canGetLocation()) {
+
+                    double latitude = gps.getLatitude();
+                    double longitude = gps.getLongitude();
+
+                    // \n is for new line
+                    Toast.makeText(getApplicationContext(), "Your Location is - \nLat: " + latitude +
+                            "\nLong: " + longitude, Toast.LENGTH_LONG).show();
+                } else {
+                    // can't get location
+                    // GPS or Network is not enabled
+                    // Ask user to enable GPS/network in settings
+                    gps.showSettingsAlert();
+                }
+            }
+        });
     }
 
     private void pickUserAccount() {
@@ -59,11 +97,11 @@ public class MainActivity extends ActionBarActivity {
         // Later, more code will go here to handle the result from some exceptions...
     }
 
-    public void getCalendarList(){
-        if(mEmail == null){
+    public void getCalendarList() {
+        if (mEmail == null) {
             pickUserAccount();
         } else {
-            if(isDeviceOnline()){
+            if (isDeviceOnline()) {
                 new ListCalendarsTask(MainActivity.this, mEmail, mScopes).execute();
             } else {
                 Toast.makeText(this, R.string.not_online, Toast.LENGTH_LONG).show();
@@ -71,22 +109,22 @@ public class MainActivity extends ActionBarActivity {
         }
     }
 
-    private boolean isDeviceOnline(){
+    private boolean isDeviceOnline() {
         NetworkInfo ni = cm.getActiveNetworkInfo();
-        if(ni == null){
+        if (ni == null) {
             return false;
         } else {
             return true;
         }
     }
 
-    public void loginButtonHandler(View view){
-        if(mEmail == null){
+    public void loginButtonHandler(View view) {
+        if (mEmail == null) {
             pickUserAccount();
         }
     }
 
-    public void handleException(Exception e){
+    public void handleException(Exception e) {
         e.printStackTrace();
     }
 
@@ -95,6 +133,7 @@ public class MainActivity extends ActionBarActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+
         return true;
     }
 
