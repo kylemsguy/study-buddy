@@ -17,9 +17,6 @@ import android.view.MenuItem;
 
 
 import android.view.View;
-import android.widget.TextView;
-import android.widget.Toast;
-
 
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -28,12 +25,10 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 
 import com.google.api.services.calendar.model.Event;
-import com.google.api.services.calendar.model.Events;
 
 import com.kylemsguy.studybuddy.backend.ConnectionManager;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 
@@ -82,21 +77,21 @@ public class CourseActivity extends ActionBarActivity implements OnClickListener
 
         //button
         getCalendarEvents();
-        Button one = (Button) findViewById(R.id.one);
+        one = (Button) findViewById(R.id.one);
         one.setText("CSC324");
-        one.setOnClickListener((View.OnClickListener) this);
-        Button four = (Button) findViewById(R.id.four);
+        one.setOnClickListener(this);
+        four = (Button) findViewById(R.id.four);
         four.setText("CSC411");
-        four.setOnClickListener((View.OnClickListener) this);
-        Button two = (Button) findViewById(R.id.two);
+        four.setOnClickListener(this);
+        two = (Button) findViewById(R.id.two);
         two.setText("CSC384");
-        two.setOnClickListener((View.OnClickListener) this);
-        Button three = (Button) findViewById(R.id.three);
+        two.setOnClickListener(this);
+        three = (Button) findViewById(R.id.three);
         three.setText("CSC336");
-        three.setOnClickListener((View.OnClickListener) this);
-        Button zero = (Button) findViewById(R.id.zero);
+        three.setOnClickListener(this);
+        zero = (Button) findViewById(R.id.zero);
         zero.setText("CSC343");
-        zero.setOnClickListener((View.OnClickListener) this);
+        zero.setOnClickListener(this);
 
 
 
@@ -302,40 +297,41 @@ public class CourseActivity extends ActionBarActivity implements OnClickListener
     public void onClick(View v) {
         double latitude = ((SBApp) getApplication()).getLatitude();
         double longitude = ((SBApp) getApplication()).getLongitude();
-            try {
-                if (v == one) {
-                    String[] course = {"CSC343"};
-                    Intent intent = new Intent(this, ChatActivity.class);
-                    intent.putIntegerArrayListExtra("server_ids",
-                            (ArrayList<Integer>) cm.getNearbyUsers(course, latitude, longitude, 50));
-                    startActivity(intent);
-                }
-                if (v == two) {
-                    String[] course = {"CSC324"};
-                    cm.getNearbyUsers(course, latitude, longitude, 50);
-                    Intent intent = new Intent(this, ChatActivity.class);
-                    startActivity(intent);
-                }
-                if (v == three) {
-                    String[] course = {"CSC336"};
-                    cm.getNearbyUsers(course, latitude, longitude, 50);
-                    Intent intent = new Intent(this, ChatActivity.class);
-                    startActivity(intent);
-                }
-                if (v == four) {
-                    String[] course = {"CSC411"};
-                    cm.getNearbyUsers(course, latitude, longitude, 50);
-                    Intent intent = new Intent(this, ChatActivity.class);
-                    startActivity(intent);
-                }
-                if (v == zero) {
-                    String[] course = {"CSC384"};
-                    cm.getNearbyUsers(course, latitude, longitude, 50);
-                    Intent intent = new Intent(this, ChatActivity.class);
-                    startActivity(intent);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
+        try {
+            if (v == one) {
+                String[] course = {"CSC343"};
+                Intent intent = new Intent(this, ChatActivity.class);
+                intent.putIntegerArrayListExtra("server_ids",
+                        (ArrayList<Integer>) cm.getNearbyUsers(course, latitude, longitude, 50));
+                startActivity(intent);
             }
+            if (v == two) {
+                String[] course = {"CSC324"};
+                cm.getNearbyUsers(course, latitude, longitude, 50);
+                Intent intent = new Intent(this, ChatActivity.class);
+                startActivity(intent);
+            }
+            if (v == three) {
+                String[] course = {"CSC336"};
+                cm.getNearbyUsers(course, latitude, longitude, 50);
+                Intent intent = new Intent(this, ChatActivity.class);
+                startActivity(intent);
+            }
+            if (v == four) {
+                String[] course = {"CSC411"};
+                cm.getNearbyUsers(course, latitude, longitude, 50);
+                Intent intent = new Intent(this, ChatActivity.class);
+                startActivity(intent);
+            }
+            if (v == zero) {
+                String[] course = {"CSC384"};
+                cm.getNearbyUsers(course, latitude, longitude, 50);
+                Intent intent = new Intent(this, ChatActivity.class);
+                startActivity(intent);
+            }
+        }catch(Exception e){
+            e.printStackTrace();
         }
+    }
 }
+

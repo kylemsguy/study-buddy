@@ -27,13 +27,14 @@ public class ChatActivity extends ActionBarActivity {
                 Context.MODE_PRIVATE);
         try {
             String convo = cm.startConvo("Conversation");
-            cm.addUsertoConvo(convo, nearbyUsers[0]);
+            cm.addUsertoConvo(convo, Integer.toString(nearbyUsers.get(0)));
             cm.addUsertoConvo(convo, prefs.getString("server_id", null));
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+        setContentView(R.layout.activity_chat);
     }
 
 
