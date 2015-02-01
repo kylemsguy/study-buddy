@@ -1,6 +1,7 @@
 package com.kylemsguy.studybuddy.backend;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.os.AsyncTask;
 
 import com.google.android.gms.auth.GoogleAuthException;
@@ -56,7 +57,13 @@ public class GetCalendarDataTask extends AsyncTask {
         } catch (UserRecoverableAuthException userRecoverableException) {
             // GooglePlayServices.apk is either old, disabled, or not present
             // so we need to show the user some UI in the activity to recover.
-            mActivity.handleException(userRecoverableException);
+            //mActivity.handleException(userRecoverableException);
+            AlertDialog dialog = new AlertDialog.Builder(mActivity)
+                    .setTitle("Google Play Services Error")
+                    .setMessage("Please install/update Google Play Services.")
+                    .create();
+            dialog.show();
+            userRecoverableException.printStackTrace();
         } catch (GoogleAuthException fatalException) {
             // Some other type of unrecoverable exception has occurred.
             // Report and log the error as appropriate for your app.

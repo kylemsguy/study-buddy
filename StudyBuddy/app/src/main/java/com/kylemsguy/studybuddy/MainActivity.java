@@ -60,7 +60,9 @@ public class MainActivity extends ActionBarActivity {
             pickUserAccount();
         } else {
             if(isDeviceOnline()){
-                new ListCalendarsTask()
+                new ListCalendarsTask(MainActivity.this, mEmail, mScopes).execute();
+            } else {
+                Toast.makeText(this, R.string.not_online, Toast.LENGTH_LONG).show();
             }
         }
     }
@@ -69,6 +71,10 @@ public class MainActivity extends ActionBarActivity {
         if(mEmail == null){
             pickUserAccount();
         }
+    }
+
+    public void handleException(Exception e){
+        e.printStackTrace();
     }
 
 
