@@ -12,6 +12,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.kylemsguy.studybuddy.backend.ConnectionManager;
 
@@ -99,7 +101,7 @@ public class CourseActivity extends ActionBarActivity {
     private SharedPreferences getGCMPreferences(Context context) {
         // This sample app persists the registration ID in shared preferences, but
         // how you store the regID in your app is up to you.
-        return getSharedPreferences(DemoActivity.class.getSimpleName(),
+        return getSharedPreferences(CourseActivity.class.getSimpleName(),
                 Context.MODE_PRIVATE);
     }
 
@@ -136,7 +138,11 @@ public class CourseActivity extends ActionBarActivity {
                     msg = "Device registered, registration ID=" + regid;
 
                     // now register with server
-                    registerClientServer();
+                    try {
+                        registerClientServer();
+                    } catch(Exception e){
+                        e.printStackTrace();
+                    }
 
                     // Persist the regID - no need to register again.
                     storeRegistrationId(context, regid);
@@ -156,8 +162,52 @@ public class CourseActivity extends ActionBarActivity {
         }.execute(null, null, null);
     }
 
-    private void registerClientServer(){
-        new AsyncTask<>()
+    private void registerClientServer() throws Exception{
+        cm.register("username", "email", regid);
+    }
+
+    // You need to do the Play Services APK check here too.
+    @Override
+    protected void onResume() {
+        super.onResume();
+        checkPlayServices();
+    }
+
+    /**
+     * Stores the registration ID and app versionCode in the application's
+     * {@code SharedPreferences}.
+     *
+     * @param context application's context.
+     * @param regId registration ID
+     */
+    private void storeRegistrationId(Context context, String regId) {
+        final SharedPreferences prefs = getGCMPreferences(context);
+        int appVersion = getAppVersion(context);
+        Log.i(TAG, "Saving regId on app version " + appVersion);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString(PROPERTY_REG_ID, regId);
+        editor.putInt(PROPERTY_APP_VERSION, appVersion);
+        editor.commit();
+    }
+
+    /**
+     * Check the device to make sure it has the Google Play Services APK. If
+     * it doesn't, display a dialog that allows users to download the APK from
+     * the Google Play Store or enable it in the device's system settings.
+     */
+    private boolean checkPlayServices() {
+        int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
+        if (resultCode != ConnectionResult.SUCCESS) {
+            if (GooglePlayServicesUtil.isUserRecoverableError(resultCode)) {
+                GooglePlayServicesUtil.getErrorDialog(resultCode, this,
+                        PLAY_SERVICES_RESOLUTION_REQUEST).show();
+            } else {
+                Log.i(TAG, "This device is not supported.");
+                finish();
+            }
+            return false;
+        }
+        return true;
     }
 
     @Override

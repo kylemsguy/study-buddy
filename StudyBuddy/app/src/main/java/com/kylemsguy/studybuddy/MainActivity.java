@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -28,6 +29,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private Button btnShowLocation;
     private Button btnCourses;
     private boolean flag = false;
+
+    AsyncTask getcalendars = null;
 
     //Tracker class for gps
     GPSTracker gps;
@@ -108,7 +111,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
             pickUserAccount();
         } else {
             if (isDeviceOnline()) {
-                new ListCalendarsTask(MainActivity.this, mEmail, mScopes).execute();
+                getcalendars = new ListCalendarsTask(MainActivity.this, mEmail, mScopes).execute();
             } else {
                 Toast.makeText(this, R.string.not_online, Toast.LENGTH_LONG).show();
             }

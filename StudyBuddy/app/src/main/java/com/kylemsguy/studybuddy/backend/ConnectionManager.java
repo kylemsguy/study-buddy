@@ -1,5 +1,7 @@
 package com.kylemsguy.studybuddy.backend;
 
+import android.content.SharedPreferences;
+
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
 
 import org.json.JSONException;
@@ -24,7 +26,6 @@ public class ConnectionManager {
     private static final String BASE_URL = "http://104.236.221.152/sb/";
 
     public ConnectionManager (){
-        // TODO nothing
     }
 
     public String register(String username, String email, String gcm_id) throws Exception {
@@ -42,7 +43,7 @@ public class ConnectionManager {
             e.printStackTrace();
         }
 
-        postParams = paramData.getString();
+        postParams = paramData.toString();
 
         // Send data
         return sendPost(BASE_URL + "register_user/", postParams);
@@ -81,6 +82,14 @@ public class ConnectionManager {
         sendPost(BASE_URL + "register_user/", paramData.toString());
     }
 
+    public void startConvo(String[] server_ids){
+
+    }
+
+    public void sendMessage(String convo_id, String message){
+
+    }
+
     public void getNearbyUsers(String[] courses, double latitude, double longitude, int radius) throws Exception {
         StringBuilder sb = new StringBuilder();
         for(String course: courses){
@@ -96,15 +105,15 @@ public class ConnectionManager {
 
         JSONObject respJson = new JSONObject(response);
 
-        List<>
+        //TODO finish writing this
 
     }
 
     // HTTP GET request
-    public String sendGet(String url) throws Exception {
+    private String sendGet(String url) throws Exception {
 
         URL obj = new URL(url);
-        connection = (HttpURLConnection) obj.openConnection();
+        HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
         // optional default is GET
         con.setRequestMethod("GET");
@@ -139,7 +148,7 @@ public class ConnectionManager {
      * @return
      * @throws Exception
      */
-    public String sendPost(String url, String postParams) throws Exception {
+    private String sendPost(String url, String postParams) throws Exception {
         // start the connection
         URL obj = new URL(url);
         connection = (HttpURLConnection) obj.openConnection();
@@ -156,10 +165,10 @@ public class ConnectionManager {
         connection.setFixedLengthStreamingMode(postParams.getBytes().length);
         connection.setRequestProperty("Content-Type",
                 "application/x-www-form-urlencoded");
-        // COOKIES
+        /*// COOKIES
         for (String cookie : this.cookies) {
             connection.addRequestProperty("Cookie", cookie.split(";", 1)[0]);
-        }
+        }*/
         connection.setRequestProperty("Host", "twocansandstring.com");
 
         connection.setRequestProperty("User-Agent", USER_AGENT);
