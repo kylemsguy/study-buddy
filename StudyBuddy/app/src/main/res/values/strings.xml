@@ -7,6 +7,9 @@
     <string name="title_activity_course_acticity">CourseActicity</string>
     <string name="title_activity_list_name">ListNameActivity</string>
     <string name="title_activity_chat">ChatActivity</string>
-    <string name="title_activity_gp_ptracker">GpPTracker</string>
+    <string name="title_activity_gp_ptracker">GPSTracker</string>
+    <string name="login_google">Login with Google</string>
+    <string name="user_name">Username</string>
+    <string name="placeholder_large_text">Large Text</string>
 
 </resources>
