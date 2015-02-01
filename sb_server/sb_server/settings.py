@@ -36,7 +36,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'sb_serv'
+    'sb_serv',
+    'gcm'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -82,4 +83,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATIC_URL = '/static/'
+
+GCM_APIKEY = 'AIzaSyC9G12demaN1aDlLU0sk3BxoybcaCvP5KI'
+GCM_DEVICE_MODEL = 'sb_serv.models.SBDevice'
 
