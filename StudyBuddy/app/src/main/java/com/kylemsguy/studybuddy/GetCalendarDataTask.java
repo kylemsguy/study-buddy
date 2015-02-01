@@ -1,4 +1,4 @@
-package com.kylemsguy.studybuddy.backend;
+package com.kylemsguy.studybuddy;
 
 import android.app.Activity;
 import android.app.AlertDialog;

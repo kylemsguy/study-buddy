@@ -12,5 +12,6 @@
     <string name="user_name">Username</string>
     <string name="placeholder_large_text">Large Text</string>
     <string name="not_online">Not online. Check internet connection.</string>
+    <string name="pick_account">Pick your Google Account</string>
 
 </resources>

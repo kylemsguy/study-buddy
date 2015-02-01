@@ -1,7 +1,10 @@
 package com.kylemsguy.studybuddy;
 
 import android.accounts.AccountManager;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -18,7 +21,6 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.common.AccountPicker;
-import com.kylemsguy.studybuddy.backend.ListCalendarsTask;
 
 
 public class MainActivity extends Activity {
@@ -37,11 +39,13 @@ public class MainActivity extends Activity {
             = "oauth2:" + USERINFO_SCOPE + " " + GCAL_SCOPE;
 
     private String mEmail = null; // Received from newChooseAccountIntent(); passed to getToken()
+    ConnectivityManager cm = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 
         btnShowLocation = (Button) findViewById(R.id.btnShowLocation);
         btnShowLocation.setOnClickListener(new View.OnClickListener() {
@@ -51,14 +55,15 @@ public class MainActivity extends Activity {
                 gps = new GPSTracker(MainActivity.this);
 
                 // check if GPS enabled
-                if(gps.canGetLocation()){
+                if (gps.canGetLocation()) {
 
                     double latitude = gps.getLatitude();
                     double longitude = gps.getLongitude();
 
                     // \n is for new line
-                    Toast.makeText(getApplicationContext(), "Your Location is - \nLat: " + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();
-                }else{
+                    Toast.makeText(getApplicationContext(), "Your Location is - \nLat: " + latitude +
+                            "\nLong: " + longitude, Toast.LENGTH_LONG).show();
+                } else {
                     // can't get location
                     // GPS or Network is not enabled
                     // Ask user to enable GPS/network in settings
@@ -92,11 +97,11 @@ public class MainActivity extends Activity {
         // Later, more code will go here to handle the result from some exceptions...
     }
 
-    public void getCalendarList(){
-        if(mEmail == null){
+    public void getCalendarList() {
+        if (mEmail == null) {
             pickUserAccount();
         } else {
-            if(isDeviceOnline()){
+            if (isDeviceOnline()) {
                 new ListCalendarsTask(MainActivity.this, mEmail, mScopes).execute();
             } else {
                 Toast.makeText(this, R.string.not_online, Toast.LENGTH_LONG).show();
@@ -104,13 +109,22 @@ public class MainActivity extends Activity {
         }
     }
 
-    public void loginButtonHandler(View view){
-        if(mEmail == null){
+    private boolean isDeviceOnline() {
+        NetworkInfo ni = cm.getActiveNetworkInfo();
+        if (ni == null) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public void loginButtonHandler(View view) {
+        if (mEmail == null) {
             pickUserAccount();
         }
     }
 
-    public void handleException(Exception e){
+    public void handleException(Exception e) {
         e.printStackTrace();
     }
 
