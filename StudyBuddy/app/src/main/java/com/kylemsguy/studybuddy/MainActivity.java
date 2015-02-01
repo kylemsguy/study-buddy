@@ -22,6 +22,8 @@ import android.view.View;
 import android.widget.Toast;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 
 import com.google.android.gms.common.AccountPicker;
 
@@ -33,6 +35,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private boolean flag = false;
     private EditText mEdit;
     private TextView mText;
+    public static final String MyPREFERENCES = "MyPrefs" ;
+    TextView name ;
+
+    SharedPreferences sharedpreferences;
 
     AsyncTask getcalendars = null;
 
@@ -60,6 +66,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         btnCourses = (Button) findViewById(R.id.courses);
         btnCourses.setOnClickListener((View.OnClickListener) this);
 
+        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
         btnShowLocation = (Button) findViewById(R.id.btnShowLocation);
         btnShowLocation.setOnClickListener(new View.OnClickListener() {
 
@@ -171,6 +178,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         if (v == btnCourses && !flag){
             System.out.println("courses registerd");
             mEdit   = (EditText)findViewById(R.id.user);
+            name = (TextView) findViewById(R.id.user);
             Intent intent = new Intent(this, CourseActivity.class);
             startActivityForResult(intent, 0);
         }
