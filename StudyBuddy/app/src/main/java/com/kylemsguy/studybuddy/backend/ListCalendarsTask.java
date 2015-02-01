@@ -1,18 +1,22 @@
 package com.kylemsguy.studybuddy.backend;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.os.AsyncTask;
 
 import com.google.android.gms.auth.GoogleAuthException;
 import com.google.android.gms.auth.GoogleAuthUtil;
 import com.google.android.gms.auth.UserRecoverableAuthException;
 
+import com.google.api.services.calendar.Calendar;
+import com.google.api.services.calendar.model.CalendarList;
+
 import java.io.IOException;
 
 /**
  * Created by kyle on 31/01/15.
  */
-public class ListCalendarsTask extends AsyncTask {
+public class ListCalendarsTask extends AsyncTask<Void, Void, Calendar> {
     Activity mActivity;
     String mScope;
     String mEmail;
@@ -28,13 +32,17 @@ public class ListCalendarsTask extends AsyncTask {
      * on the AsyncTask instance.
      */
     @Override
-    protected Void doInBackground(Void... params) {
+    protected Calendar doInBackground(Void... params) {
         try {
             String token = fetchToken();
             if (token != null) {
                 // Insert the good stuff here.
                 // Use the token to access the user's Google data.
-                
+                Calendar service = new Calendar.Builder(httpTransport, jsonFactory, credentials)
+                        .setApplicationName("StudyBuddy").build();
+                String pageToken = null;
+                CalendarList calendarList = service.calendarList().list()
+                        .setPageToken(pageToken).execute();
             }
         } catch (IOException e) {
             // The fetchToken() method handles Google-specific exceptions,
@@ -56,7 +64,13 @@ public class ListCalendarsTask extends AsyncTask {
         } catch (UserRecoverableAuthException userRecoverableException) {
             // GooglePlayServices.apk is either old, disabled, or not present
             // so we need to show the user some UI in the activity to recover.
-            mActivity.handleException(userRecoverableException);
+            //mActivity.handleException(userRecoverableException);
+            AlertDialog dialog = new AlertDialog.Builder(mActivity)
+                    .setTitle("Google Play Services Error")
+                    .setMessage("Please install/update Google Play Services.")
+                    .create();
+            dialog.show();
+            userRecoverableException.printStackTrace();
         } catch (GoogleAuthException fatalException) {
             // Some other type of unrecoverable exception has occurred.
             // Report and log the error as appropriate for your app.
