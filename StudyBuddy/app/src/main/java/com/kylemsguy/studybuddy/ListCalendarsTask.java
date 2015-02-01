@@ -16,6 +16,7 @@ import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -46,13 +47,22 @@ public class ListCalendarsTask extends AsyncTask<Void, Void, List<CalendarListEn
                 // Insert the good stuff here.
                 // Use the token to access the user's Google data.
                 GoogleCredential credential = new GoogleCredential().setAccessToken(token);
-                Calendar service = new Calendar.Builder(AndroidHttp.newCompatibleTransport(), jsonFactory, null)
+                Calendar service = new Calendar.Builder(AndroidHttp.newCompatibleTransport(), jsonFactory, credential)
                         .setApplicationName("StudyBuddy").build();
                 String pageToken = null;
-                CalendarList calendarList = service.calendarList().list()
-                        .setPageToken(pageToken).execute();
-                List<CalendarListEntry> items = calendarList.getItems();
-                return items;
+                List<CalendarListEntry> allItems = new ArrayList<CalendarListEntry>();
+
+                do {
+                    CalendarList calendarList = service.calendarList().list()
+                            .setPageToken(pageToken).execute();
+                    List<CalendarListEntry> items = calendarList.getItems();
+
+                    for (CalendarListEntry calendarListEntry : items) {
+                        allItems.add(calendarListEntry);
+                    }
+                    pageToken = calendarList.getNextPageToken();
+
+                } while (pageToken != null);
             }
         } catch (IOException e) {
             // The fetchToken() method handles Google-specific exceptions,

@@ -7,21 +7,33 @@ import android.os.AsyncTask;
 import com.google.android.gms.auth.GoogleAuthException;
 import com.google.android.gms.auth.GoogleAuthUtil;
 import com.google.android.gms.auth.UserRecoverableAuthException;
+import com.google.api.client.extensions.android.http.AndroidHttp;
+import com.google.api.client.extensions.android.json.AndroidJsonFactory;
+import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
+import com.google.api.services.calendar.Calendar;
+import com.google.api.services.calendar.model.CalendarList;
+import com.google.api.services.calendar.model.CalendarListEntry;
+import com.google.api.services.calendar.model.Event;
+import com.google.api.services.calendar.model.Events;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by kyle on 31/01/15.
  */
-public class GetCalendarDataTask extends AsyncTask {
+public class GetCalendarDataTask extends AsyncTask<String, Void, List<Event>> {
     Activity mActivity;
     String mScope;
     String mEmail;
+    AndroidJsonFactory jsonFactory;
 
     GetCalendarDataTask(Activity activity, String name, String scope) {
         this.mActivity = activity;
         this.mScope = scope;
         this.mEmail = name;
+        jsonFactory = new AndroidJsonFactory();
     }
 
     /**
@@ -29,13 +41,29 @@ public class GetCalendarDataTask extends AsyncTask {
      * on the AsyncTask instance.
      */
     @Override
-    protected Void doInBackground(Void... params) {
+    protected List<Event> doInBackground(String... params) {
         try {
             String token = fetchToken();
             if (token != null) {
                 // Insert the good stuff here.
                 // Use the token to access the user's Google data.
+                GoogleCredential credential = new GoogleCredential().setAccessToken(token);
+                Calendar service = new Calendar.Builder(AndroidHttp.newCompatibleTransport(), jsonFactory, credential)
+                        .setApplicationName("StudyBuddy").build();
+                String pageToken = null;
 
+                List<Event> allItems = new ArrayList<Event>();
+
+                // Iterate over the events in the specified calendar
+                do {
+                    Events events = service.events().list("primary").setPageToken(pageToken).execute();
+                    List<Event> items = events.getItems();
+                    for (Event event : items) {
+                        allItems.add(event);
+                    }
+                    pageToken = events.getNextPageToken();
+                } while (pageToken != null);
+                return allItems;
             }
         } catch (IOException e) {
             // The fetchToken() method handles Google-specific exceptions,
