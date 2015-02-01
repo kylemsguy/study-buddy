@@ -29,10 +29,11 @@ def register_user(request):
 	try:
 		user_name = request.POST['user_name']
 		user_email = request.POST['user_email']
+		reg_id = request.POST['reg_id']
 	except KeyError:
 		return HttpResponse('Bad request', status=400)
 
-	user = User(name=user_name, email=user_email, reg_date=timezone.now(), lat=0, lon=0)
+	user = User(name=user_name, email=user_email, reg_date=timezone.now(), reg_id=reg_id, lat=0, lon=0)
 	user.save()
 
 	return HttpResponse(json.dumps(user.json_dict()))
