@@ -22,87 +22,78 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="80dp"
-        android:text="z"
         android:textSize="15pt"
         android:textColor="#FFFFFF"
-        android:id="@+id/course2"
+        android:id="@+id/zero"
         android:autoText="true"
         android:background="#019BDF"
-        android:layout_below="@+id/course3"
+        android:layout_above="@+id/one"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignRight="@+id/one"
+        android:layout_alignEnd="@+id/one"
+        android:onClick="true"/>
 
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="80dp"
-        android:text="f"
         android:textSize="15pt"
         android:textColor="#FFFFFF"
-        android:id="@+id/course3"
+        android:id="@+id/one"
         android:background="#ff65b34f"
-        android:layout_below="@+id/textView"
+        android:layout_above="@+id/three"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/course2"
-        android:layout_alignEnd="@+id/course2" />
+        android:layout_alignRight="@+id/textView"
+        android:layout_alignEnd="@+id/textView"
+        android:onClick="true"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="80dp"
-        android:text="F"
+
         android:textSize="15pt"
         android:textColor="#FFFFFF"
-        android:id="@+id/button"
+        android:id="@+id/two"
         android:background="#ff1733a6"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:layout_marginBottom="86dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_below="@+id/course2" />
+        android:onClick="true"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="80dp"
-        android:text="F"
         android:textSize="15pt"
         android:textColor="#FFFFFF"
-        android:id="@+id/button2"
+        android:id="@+id/three"
         android:background="#ffa61824"
-        android:layout_below="@+id/button"
+        android:layout_above="@+id/four"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/button"
-        android:layout_alignEnd="@+id/button" />
+        android:layout_alignRight="@+id/one"
+        android:layout_alignEnd="@+id/one"
+        android:onClick="true"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="80dp"
-        android:text="F"
+
         android:textSize="15pt"
         android:textColor="#FFFFFF"
-        android:id="@+id/button3"
+        android:id="@+id/four"
         android:background="#ffa64529"
-        android:layout_below="@+id/button2"
+        android:layout_above="@+id/two"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/button2"
-        android:layout_alignEnd="@+id/button2" />
+        android:layout_alignRight="@+id/three"
+        android:layout_alignEnd="@+id/three"
+        android:onClick="true"/>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="80dp"
-        android:text="F"
-        android:textSize="15pt"
-        android:textColor="#FFFFFF"
-        android:id="@+id/button4"
-        android:background="#ffa5a1a6"
-        android:layout_below="@+id/button3"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/button3"
-        android:layout_alignEnd="@+id/button3" />
+
 
 </RelativeLayout>

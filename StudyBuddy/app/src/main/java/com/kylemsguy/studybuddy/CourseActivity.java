@@ -1,7 +1,7 @@
 package com.kylemsguy.studybuddy;
 
-import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -11,8 +11,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
-
+import android.view.View;
+import android.widget.Button;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
@@ -20,15 +20,15 @@ import com.kylemsguy.studybuddy.backend.ConnectionManager;
 
 import java.io.IOException;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.*;
 
 
-public class CourseActivity extends ActionBarActivity {
+public class CourseActivity extends ActionBarActivity implements View.OnClickListener {
 
     public static final String EXTRA_MESSAGE = "message";
     public static final String PROPERTY_REG_ID = "registration_id";
     private static final String PROPERTY_APP_VERSION = "appVersion";
     private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
+    private Button one, two, three, four, zero;
 
     private String SENDER_ID = "505286379749";
     private ConnectionManager cm;
@@ -48,11 +48,25 @@ public class CourseActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_course_activity);
+        setContentView(R.layout.activity_course);
 
         context = getApplicationContext();
         cm = new ConnectionManager();
-        System.out.println(context);
+
+
+        //button
+        Button one = (Button) findViewById(R.id.one);
+        one.setText("a");
+        Button four = (Button) findViewById(R.id.four);
+        four.setText("b");
+        Button two = (Button) findViewById(R.id.two);
+        two.setText("c");
+        Button three = (Button) findViewById(R.id.three);
+        three.setText("d");
+        Button zero = (Button) findViewById(R.id.zero);
+        zero.setText("d");
+
+
 
         // Check device for Play Services APK. If check succeeds, proceed with
         //  GCM registration.
@@ -237,5 +251,13 @@ public class CourseActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v == one ||v == zero||v==two||v==three||v==four ){
+            Intent intent = new Intent(this, ChatActivity.class);
+            startActivityForResult(intent, 0);
+        }
     }
 }
