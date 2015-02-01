@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * Created by kyle on 31/01/15.
  */
-public class ListCalendarsTask extends AsyncTask<Void, Void, Calendar> {
+public class ListCalendarsTask extends AsyncTask<Void, Void, List<CalendarListEntry>> {
     Activity mActivity;
     String mScope;
     String mEmail;
@@ -34,7 +34,7 @@ public class ListCalendarsTask extends AsyncTask<Void, Void, Calendar> {
      * on the AsyncTask instance.
      */
     @Override
-    protected Calendar doInBackground(Void... params) {
+    protected List<CalendarListEntry> doInBackground(Void... params) {
         try {
             String token = fetchToken();
             if (token != null) {
@@ -46,7 +46,7 @@ public class ListCalendarsTask extends AsyncTask<Void, Void, Calendar> {
                 CalendarList calendarList = service.calendarList().list()
                         .setPageToken(pageToken).execute();
                 List<CalendarListEntry> items = calendarList.getItems();
-                for(CalendarListEntry entry: items)
+                return items;
             }
         } catch (IOException e) {
             // The fetchToken() method handles Google-specific exceptions,
