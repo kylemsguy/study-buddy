@@ -14,10 +14,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import android.view.View;
+
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -33,7 +35,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 
-public class CourseActivity extends ActionBarActivity implements View.OnClickListener {
+public class CourseActivity extends ActionBarActivity implements OnClickListener {
 
     public static final String EXTRA_MESSAGE = "message";
     public static final String PROPERTY_REG_ID = "registration_id";
@@ -288,6 +290,7 @@ public class CourseActivity extends ActionBarActivity implements View.OnClickLis
         return super.onOptionsItemSelected(item);
     }
 
+
     @Override
     public void onClick(View v) {
         if (v == one ){
@@ -311,5 +314,4 @@ public class CourseActivity extends ActionBarActivity implements View.OnClickLis
             startActivityForResult(intent, 0);
         }
     }
-
 }
