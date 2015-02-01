@@ -6,19 +6,44 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="com.kylemsguy.studybuddy.ChatActivity">
 
-
-    <TextView
-        android:layout_width="200dp"
+    <EditText
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="You are Connected!"
-        android:textSize="40dp"
-        android:id="@+id/textView2"
+        android:textSize="15pt"
+        android:textColor="#ffb1b1b1"
+        android:background="#fff4ff8f"
+        android:id="@+id/chatBox"
+        android:layout_alignBottom="@+id/button"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:layout_toLeftOf="@+id/button"
+        android:layout_toStartOf="@+id/button"
+        />
+
+    <Button
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:text="New Button"
+        android:id="@+id/button"
+        android:background="#fff4ff8f"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:gravity="center"
         android:layout_alignParentEnd="true" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:id="@+id/textView2"
+        android:layout_alignRight="@+id/button"
+        android:layout_alignEnd="@+id/button"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="#ffff7527"
+        android:layout_above="@+id/chatBox" />
 </RelativeLayout>
 
