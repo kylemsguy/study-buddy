@@ -10,6 +10,5 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^sb/', include('sb_serv.urls')),
-    url(r'', include('gcm.urls')),
 )
 

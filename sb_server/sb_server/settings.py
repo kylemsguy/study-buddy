@@ -84,6 +84,4 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-GCM_APIKEY = 'AIzaSyC9G12demaN1aDlLU0sk3BxoybcaCvP5KI'
-GCM_DEVICE_MODEL = 'sb_serv.models.SBDevice'
-
+GCM_API_KEY = 'AIzaSyC9G12demaN1aDlLU0sk3BxoybcaCvP5KI'

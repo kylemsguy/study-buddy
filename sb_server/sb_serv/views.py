@@ -8,9 +8,13 @@ from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 
-from sb_serv.models import User, Course
+from sb_serv.models import User, Course, Conversation
 from sb_serv.utils import lat_lon_dist
 
+# GCM
+from gcm import GCM
+from sb_server.settings import GCM_API_KEY
+gcm = GCM(GCM_API_KEY)
 
 @csrf_exempt
 def serv_post(request):
@@ -122,3 +126,61 @@ def close_users(request, courses, lat, lon, dist):
 		response_data[course.code] = near_users_json
 
 	return HttpResponse(json.dumps(response_data), content_type='application/json')
+
+@csrf_exempt
+@require_POST
+def new_conversation(request):
+	try:
+		name = request.POST['name']
+	except KeyError:
+		return HttpResponse('Bad data', status=400)
+
+	c = Conversation(name=name, created_time=timezone.now())
+	c.save()
+
+	return HttpResponse(c.id)
+
+@csrf_exempt
+def list_conversations(request):
+	response_data = [{'name': c.name, 'users': [u.json_dict() for u in c.users.all()]}
+		for c in Conversation.objects.all()]
+	return HttpResponse(json.dumps(response_data), content_type='application/json')
+
+@csrf_exempt
+@require_POST
+def add_to_conversation(request):
+	try:
+		conv_id = int(request.POST['conv_id'])
+		user_id = int(request.POST['user_id'])
+	except KeyError:
+		return HttpResponse('Bad data', status=400)
+
+	conv = Conversation.objects.get(pk=conv_id)
+	user = User.objects.get(pk=user_id)
+
+	conv.users.add(user)
+
+	return HttpResponse()
+
+@csrf_exempt
+@require_POST
+def post_message(request):
+	try:
+		conv_id = int(request.POST['conv_id'])
+		author = request.POST['author']
+		content = request.POST['content']
+	except KeyError:
+		return HttpResponse('Bad data', status=400)
+
+	data = {
+		'the_message': content,
+		'author': author,
+		'conversation_id': str(conv_id)
+	}
+
+	conv = Conversation.objects.get(pk=conv_id)
+	reg_ids = [user.reg_id for user in conv.users.all()]
+
+	gcm.json_request(registration_ids=reg_ids, data=data)
+
+	return HttpResponse()

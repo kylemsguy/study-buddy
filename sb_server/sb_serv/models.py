@@ -1,22 +1,12 @@
 from django.db import models
 
-from gcm.models import AbstractDevice
-
-class SBDevice(AbstractDevice):
-	pass
-
 class User(models.Model):
 	""" Stores up to date user info """
 	email = models.EmailField()
 	name = models.CharField(max_length = 200)
 	reg_date = models.DateTimeField('date registered')
 
-	#reg_id = models.CharField(max_length=512)
-	"""
-	device = models.ForeignKey(SBDevice, default=SBDevice(dev_id='test',
-		reg_id='APA91bFEyqxImF6eHLz6E-rgtZycTVPQANC59-SpHe1FWzmjgAZdre40jSxWRDR3eGhnOhtdNoZLNiJSX1ypOMLcNI8jxtAHjkX5eJLUg-DNYN9H3L_X2amOo58eXac5oYftRkPDdmvxMFf0kHFtg1OZNM9zZVb5gg',
-		name='Test', is_active=True))
-"""
+	reg_id = models.CharField(max_length=512)
 
 	# Most recently updated GPS coordinates
 	lat = models.FloatField()
