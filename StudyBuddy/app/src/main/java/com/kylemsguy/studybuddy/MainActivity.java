@@ -163,12 +163,12 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        if (v == btnCourses &&  flag){
+        if (v == btnCourses && !flag){
             System.out.println("courses and registerd");
             Intent intent = new Intent(this, CourseActivity.class);
             startActivityForResult(intent, 0);
         }
-        if (v == btnCourses && !flag){
+        if (v == btnCourses && flag){
             System.out.println("courses and not registered");
             Toast.makeText(getApplicationContext(), "You need to register to start!!!!!!!", Toast.LENGTH_LONG).show();
         }

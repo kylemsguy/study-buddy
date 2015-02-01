@@ -1,5 +1,6 @@
 package com.kylemsguy.studybuddy;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
@@ -36,7 +37,6 @@ public class CourseActivity extends ActionBarActivity {
      */
     static final String TAG = "SB_GCM";
 
-    TextView mDisplay;
     GoogleCloudMessaging gcm;
     AtomicInteger msgId = new AtomicInteger();
     SharedPreferences prefs;
@@ -60,6 +60,9 @@ public class CourseActivity extends ActionBarActivity {
 
             if (regid.isEmpty()) {
                 registerInBackground();
+            } else {
+                // uncomment for debug
+                //System.out.println(regid);
             }
         } else {
             Log.i(TAG, "No valid Google Play Services APK found.");
@@ -157,12 +160,14 @@ public class CourseActivity extends ActionBarActivity {
 
             @Override
             protected void onPostExecute(String msg) {
-                mDisplay.append(msg + "\n");
+                //mDisplay.append(msg + "\n");
+                System.out.println(msg);
             }
         }.execute(null, null, null);
     }
 
     private void registerClientServer() throws Exception{
+        System.out.println(regid);
         cm.register("username", "email", regid);
     }
 
