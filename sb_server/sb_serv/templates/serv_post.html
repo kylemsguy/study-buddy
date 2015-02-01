@@ -21,6 +21,9 @@
 				console.log(received_data);
 				$('#response_code').html(xhr.status + " " + textStatus);
 				$('#response').html(received_data);
+			}).fail(function(xhr, textStatus, errorThrown){
+				$('#response_code').html(xhr.status + " " + textStatus + " " + errorThrown);
+				$('#response').html(xhr.responseText);
 			});
 			return false;
 		});
@@ -33,16 +36,16 @@
 <form id="form" action="" method="post">
 	<p>
 		<label for="url">URL</label> <input type="text" id="url" name="url" size="80"
-			value="http://localhost:8000/sb/register_user/" />
+			value="http://localhost:8000/sb/add_courses/" />
 	</p>
 
 	<p>
-		<input type="text" name="f0_name" id="f0_name" value="user_name" />
+		<input type="text" name="f0_name" id="f0_name" value="user_id" />
 		<textarea name="f0_content" id="f0_content" rows="3" cols="40"></textarea>
 	</p>
 
 	<p>
-		<input type="text" name="f1_name" id="f1_name" value="user_email" />
+		<input type="text" name="f1_name" id="f1_name" value="courses" />
 		<textarea name="f1_content" id="f1_content" rows="3" cols="40"></textarea>
 	</p>
 

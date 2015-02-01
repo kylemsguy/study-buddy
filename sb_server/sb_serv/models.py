@@ -16,10 +16,11 @@ class User(models.Model):
 	def json_dict(self):
 		return {
 			#'email': self.email,
+			'id': self.id,
 			'name': self.name,
 			'reg_date': self.reg_date.__str__(),
-			#'lat': self.lat,
-			#'lon': self.lon
+			'lat': self.lat,
+			'lon': self.lon
 		}
 
 class Course(models.Model):
@@ -29,6 +30,12 @@ class Course(models.Model):
 
 	def __str__(self):
 		return self.code
+
+	def json_dict(self):
+		return {
+			'code': self.code,
+			'users': [user.json_dict() for user in self.users.all()]
+		}
 
 class Conversation(models.Model):
 	""" A sequential thread of messages """
