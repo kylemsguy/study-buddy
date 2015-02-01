@@ -56,7 +56,7 @@ public class GetCalendarDataTask extends AsyncTask<String, Void, List<Event>> {
 
                 // Iterate over the events in the specified calendar
                 do {
-                    Events events = service.events().list("primary").setPageToken(pageToken).execute();
+                    Events events = service.events().list(params[0]).setPageToken(pageToken).execute();
                     List<Event> items = events.getItems();
                     for (Event event : items) {
                         allItems.add(event);
