@@ -19,8 +19,8 @@ class User(models.Model):
 			'id': self.id,
 			'name': self.name,
 			'reg_date': self.reg_date.__str__(),
-			#'lat': self.lat,
-			#'lon': self.lon
+			'lat': self.lat,
+			'lon': self.lon
 		}
 
 class Course(models.Model):

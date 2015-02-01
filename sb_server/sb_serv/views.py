@@ -29,12 +29,34 @@ def register_user(request):
 		user_name = request.POST['user_name']
 		user_email = request.POST['user_email']
 	except KeyError:
-		return HttpResponse('Bad data', status=400)
+		return HttpResponse('Bad request', status=400)
 
 	user = User(name=user_name, email=user_email, reg_date=timezone.now(), lat=0, lon=0)
 	user.save()
 
 	return HttpResponse(json.dumps(user.json_dict()))
+
+@csrf_exempt
+@require_POST
+def update_coords(request):
+	""" Update the given user's coordinates """
+	try:
+		user_id = request.POST['user_id']
+		lat = request.POST['lat']
+		lon = request.POST['lon']
+	except KeyError:
+		return HttpResponse('Bad request', status=400)
+
+	try:
+		user = User.objects.get(pk=int(user_id))
+	except User.DoesNotExist:
+		return HttpResponse('No such user', status=400)
+
+	user.lat = float(lat)
+	user.lon = float(lon)
+	user.save()
+	
+	return HttpResponse()
 
 @csrf_exempt
 def list_courses(request):
