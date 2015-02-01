@@ -31,6 +31,12 @@ class Course(models.Model):
 	def __str__(self):
 		return self.code
 
+	def json_dict(self):
+		return {
+			'code': self.code,
+			'users': [user.json_dict for user in self.users]
+		}
+
 class Conversation(models.Model):
 	""" A sequential thread of messages """
 	name = models.CharField(max_length = 200)

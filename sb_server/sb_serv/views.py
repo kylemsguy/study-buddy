@@ -8,7 +8,7 @@ from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 
-from sb_serv.models import User
+from sb_serv.models import User, Course
 
 
 @csrf_exempt
@@ -42,4 +42,19 @@ def add_courses(request):
 	""" Adds the given user to the given courses in a comma-separated list of course codes,
 		creating the courses if they do not already exist. """
 
-	return HttpResponse()
+	try:
+		user_id = request.POST['user_id']
+		courses_str = request.POST['courses']
+	except KeyError:
+		return HttpResponse('Bad data', status=400)
+
+	try:
+		user = User.objects.get(pk=int(user_id))
+	except User.DoesNotExist:
+		return HttpResponse('No such user', status=400)
+
+	course_codes = courses_str.split(',')
+	course = Courses.objects.filter(code__in=course_codes)
+
+
+	return HttpResponse(json.dumps([course.json_dict() for course in courses]))
