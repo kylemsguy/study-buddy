@@ -25,12 +25,13 @@
     <Button
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:text="New Button"
+        android:text="Send"
         android:id="@+id/button"
         android:background="#fff4ff8f"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:onClick="sendMessage"/>
 
     <TextView
         android:layout_width="wrap_content"

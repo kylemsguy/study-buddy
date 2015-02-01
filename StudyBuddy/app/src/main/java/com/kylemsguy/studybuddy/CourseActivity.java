@@ -295,14 +295,25 @@ public class CourseActivity extends ActionBarActivity implements OnClickListener
 
     @Override
     public void onClick(View v) {
-        double latitude = ((SBApp) getApplication()).getLatitude();
-        double longitude = ((SBApp) getApplication()).getLongitude();
+        final double latitude = ((SBApp) getApplication()).getLatitude();
+        final double longitude = ((SBApp) getApplication()).getLongitude();
         try {
             if (v == one) {
-                String[] course = {"CSC343"};
+                final String[] course = {"CSC343"};
                 Intent intent = new Intent(this, ChatActivity.class);
-                intent.putIntegerArrayListExtra("server_ids",
-                        (ArrayList<Integer>) cm.getNearbyUsers(course, latitude, longitude, 50));
+                intent.putIntegerArrayListExtra("server_ids", (ArrayList<Integer>)
+                        new AsyncTask<Void, Void, List<Integer>>(){
+                            @Override
+                            protected List<Integer> doInBackground(Void... params){
+                                List<Integer> asdf = null;
+                                try {
+                                    asdf = cm.getNearbyUsers(course, latitude, longitude, 50);
+                                } catch (Exception e){
+                                    e.printStackTrace();
+                                }
+                                return asdf;
+                            }
+                        }.execute().get());
                 startActivity(intent);
             }
             if (v == two) {

@@ -6,6 +6,8 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
 
 import com.kylemsguy.studybuddy.backend.ConnectionManager;
 
@@ -16,6 +18,7 @@ public class ChatActivity extends ActionBarActivity {
 
     ConnectionManager cm;
     List<Integer> nearbyUsers;
+    String convo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +29,7 @@ public class ChatActivity extends ActionBarActivity {
         SharedPreferences prefs = getSharedPreferences(ChatActivity.class.getSimpleName(),
                 Context.MODE_PRIVATE);
         try {
-            String convo = cm.startConvo("Conversation");
+            convo = cm.startConvo("Conversation");
             cm.addUsertoConvo(convo, Integer.toString(nearbyUsers.get(0)));
             cm.addUsertoConvo(convo, prefs.getString("server_id", null));
 
@@ -35,6 +38,16 @@ public class ChatActivity extends ActionBarActivity {
         }
 
         setContentView(R.layout.activity_chat);
+    }
+
+    public void sendMessage(View view){
+        EditText text = (EditText) findViewById(R.id.chatBox);
+        String message = text.toString();
+        try {
+            cm.sendMessage(convo, ((SBApp) getApplication()).getUsername(), message);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
 
