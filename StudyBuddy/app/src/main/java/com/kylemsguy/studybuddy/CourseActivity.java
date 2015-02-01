@@ -20,6 +20,7 @@ import com.kylemsguy.studybuddy.backend.ConnectionManager;
 
 import java.io.IOException;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.*;
 
 
 public class CourseActivity extends ActionBarActivity {
@@ -51,6 +52,7 @@ public class CourseActivity extends ActionBarActivity {
 
         context = getApplicationContext();
         cm = new ConnectionManager();
+        System.out.println(context);
 
         // Check device for Play Services APK. If check succeeds, proceed with
         //  GCM registration.
