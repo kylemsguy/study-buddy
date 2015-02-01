@@ -27,6 +27,8 @@ import android.content.SharedPreferences.Editor;
 
 import com.google.android.gms.common.AccountPicker;
 
+import java.util.concurrent.ExecutionException;
+
 
 public class MainActivity extends Activity implements View.OnClickListener {
 
@@ -40,7 +42,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     SharedPreferences sharedpreferences;
 
-    AsyncTask getcalendars = null;
+    AsyncTask getevents = null;
 
     //Tracker class for gps
     GPSTracker gps;
@@ -123,7 +125,13 @@ public class MainActivity extends Activity implements View.OnClickListener {
             pickUserAccount();
         } else {
             if (isDeviceOnline()) {
-                getcalendars = new ListCalendarsTask(MainActivity.this, mEmail, mScopes).execute();
+                try {
+                    ((SBApp) getApplication()).
+                            setEvents(new GetCalendarDataTask(MainActivity.this, mEmail, mScopes)
+                                    .execute().get());
+                } catch(ExecutionException | InterruptedException e) {
+                    e.printStackTrace();
+                }
             } else {
                 Toast.makeText(this, R.string.not_online, Toast.LENGTH_LONG).show();
             }

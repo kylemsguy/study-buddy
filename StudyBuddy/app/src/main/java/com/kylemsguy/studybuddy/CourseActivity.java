@@ -12,10 +12,15 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
+
+import com.google.api.services.calendar.model.Event;
+import com.google.api.services.calendar.model.Events;
+
 import com.kylemsguy.studybuddy.backend.ConnectionManager;
 
 import java.io.IOException;
@@ -44,6 +49,12 @@ public class CourseActivity extends ActionBarActivity {
     Context context;
 
     String regid;
+
+    List<Event> events = null;
+
+    public void getCalendarEvents(){
+        events = ((SBApp) getApplication()).getEvents();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
