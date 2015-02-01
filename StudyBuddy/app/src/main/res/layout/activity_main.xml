@@ -4,15 +4,19 @@
     android:layout_height="match_parent"  tools:context=".MainActivity"
     android:id="@+id/Main">
 
-    <Button
-        android:layout_width="match_parent"
+    <EditText
+    android:layout_alignBottom="@+id/textView2"
+    android:layout_toRightOf="@+id/textView2"
+    android:ems="10"
+    android:inputType="textPersonName"
+    android:layout_width="match_parent"
         android:layout_height="100dp"
         android:textSize="15pt"
         android:textColor="#ffb1b1b1"
         android:background="#ffffffff"
         android:text="@string/user_name"
         android:id="@+id/user"
-        android:inputType="textPersonName"/>
+    />
 
     <Button
             android:layout_width="match_parent"

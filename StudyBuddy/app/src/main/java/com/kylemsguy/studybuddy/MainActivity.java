@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -30,12 +31,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private Button btnShowLocation;
     private Button btnCourses;
     private boolean flag = false;
-    EditText mEdit;
-    TextView mText;
+    private EditText mEdit;
+    private TextView mText;
 
-    
-    mEdit   = (EditText)findViewById(R.id.user);
-    mEdit.getText().toString();
+    AsyncTask getcalendars = null;
+
     //Tracker class for gps
     GPSTracker gps;
 
@@ -55,6 +55,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
 
         btnCourses = (Button) findViewById(R.id.courses);
         btnCourses.setOnClickListener((View.OnClickListener) this);
@@ -115,7 +116,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
             pickUserAccount();
         } else {
             if (isDeviceOnline()) {
-                new ListCalendarsTask(MainActivity.this, mEmail, mScopes).execute();
+                getcalendars = new ListCalendarsTask(MainActivity.this, mEmail, mScopes).execute();
             } else {
                 Toast.makeText(this, R.string.not_online, Toast.LENGTH_LONG).show();
             }
@@ -167,14 +168,16 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        if (v == btnCourses &&  flag){
-            System.out.println("courses and registerd");
+        if (v == btnCourses && !flag){
+            System.out.println("courses registerd");
+            mEdit   = (EditText)findViewById(R.id.user);
             Intent intent = new Intent(this, CourseActivity.class);
             startActivityForResult(intent, 0);
         }
-        if (v == btnCourses && !flag){
-            System.out.println("courses and not registered");
-            Toast.makeText(getApplicationContext(), "You need to register to start!!!!!!!", Toast.LENGTH_LONG).show();
+        if (v == btnCourses && flag){
+            System.out.println("courses and not  registered");
+            mEdit   = (EditText)findViewById(R.id.user);
+           Toast.makeText(getApplicationContext(), "You need to register to start!!!!!!!" + mEdit.getText().toString(), Toast.LENGTH_LONG).show();
         }
     }
 }
