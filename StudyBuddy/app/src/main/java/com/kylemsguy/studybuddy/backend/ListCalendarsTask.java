@@ -15,7 +15,7 @@ import java.io.IOException;
 /**
  * Created by kyle on 31/01/15.
  */
-public class ListCalendarsTask extends AsyncTask<Void, Void, Void> {
+public class ListCalendarsTask extends AsyncTask<Void, Void, Calendar> {
     Activity mActivity;
     String mScope;
     String mEmail;
@@ -37,7 +37,8 @@ public class ListCalendarsTask extends AsyncTask<Void, Void, Void> {
             if (token != null) {
                 // Insert the good stuff here.
                 // Use the token to access the user's Google data.
-                
+                Calendar toReturn = new Calendar.Builder(httpTransport, jsonFactory, credentials)
+                        .setApplicationName("StudyBuddy").build();
             }
         } catch (IOException e) {
             // The fetchToken() method handles Google-specific exceptions,
