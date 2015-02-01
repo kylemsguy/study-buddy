@@ -23,9 +23,11 @@ import android.widget.Toast;
 import com.google.android.gms.common.AccountPicker;
 
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements View.OnClickListener {
 
-    Button btnShowLocation;
+    private Button btnShowLocation;
+    private Button btnCourses;
+    private boolean flag = false;
 
     //Tracker class for gps
     GPSTracker gps;
@@ -47,8 +49,12 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 
+        btnCourses = (Button) findViewById(R.id.courses);
+        btnCourses.setOnClickListener((View.OnClickListener) this);
+
         btnShowLocation = (Button) findViewById(R.id.btnShowLocation);
         btnShowLocation.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View arg0) {
                 // create class object
@@ -150,5 +156,18 @@ public class MainActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v == btnCourses &&  flag){
+            System.out.println("courses and registerd");
+            Intent intent = new Intent(this, CourseActivity.class);
+            startActivityForResult(intent, 0);
+        }
+        if (v == btnCourses && !flag){
+            System.out.println("courses and not registered");
+            Toast.makeText(getApplicationContext(), "You need to register to start!!!!!!!", Toast.LENGTH_LONG).show();
+        }
     }
 }
