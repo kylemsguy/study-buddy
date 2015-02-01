@@ -19,6 +19,8 @@ import com.kylemsguy.studybuddy.backend.GPSTracker;
 
 import android.view.View;
 import android.widget.Toast;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.android.gms.common.AccountPicker;
 
@@ -28,7 +30,12 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private Button btnShowLocation;
     private Button btnCourses;
     private boolean flag = false;
+    EditText mEdit;
+    TextView mText;
 
+    
+    mEdit   = (EditText)findViewById(R.id.user);
+    mEdit.getText().toString();
     //Tracker class for gps
     GPSTracker gps;
 
