@@ -6,6 +6,8 @@ class User(models.Model):
 	name = models.CharField(max_length = 200)
 	reg_date = models.DateTimeField('date registered')
 
+	reg_id = models.CharField(max_length=512)
+
 	# Most recently updated GPS coordinates
 	lat = models.FloatField()
 	lon = models.FloatField()
