@@ -9,6 +9,8 @@ import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
+
+import java.util.ArrayList;
 import java.util.List;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -221,7 +223,12 @@ public class CourseActivity extends ActionBarActivity implements OnClickListener
 
     private void registerClientServer() throws Exception{
         System.out.println(regid);
-        cm.register("username", "email", regid);
+        String username = ((SBApp) getApplication()).getUsername();
+        String email = ((SBApp) getApplication()).getEmail();
+        prefs = getSharedPreferences(CourseActivity.class.getSimpleName(), Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("server_id", cm.register(username, email, regid));
+        editor.commit();
     }
 
     // You need to do the Play Services APK check here too.
@@ -293,25 +300,42 @@ public class CourseActivity extends ActionBarActivity implements OnClickListener
 
     @Override
     public void onClick(View v) {
-        if (v == one ){
-            Intent intent = new Intent(this,ChatActivity.class);
-            startActivityForResult(intent, 0);
+        double latitude = ((SBApp) getApplication()).getLatitude();
+        double longitude = ((SBApp) getApplication()).getLongitude();
+            try {
+                if (v == one) {
+                    String[] course = {"CSC343"};
+                    Intent intent = new Intent(this, ChatActivity.class);
+                    intent.putIntegerArrayListExtra("server_ids",
+                            (ArrayList<Integer>) cm.getNearbyUsers(course, latitude, longitude, 50));
+                    startActivity(intent);
+                }
+                if (v == two) {
+                    String[] course = {"CSC324"};
+                    cm.getNearbyUsers(course, latitude, longitude, 50);
+                    Intent intent = new Intent(this, ChatActivity.class);
+                    startActivity(intent);
+                }
+                if (v == three) {
+                    String[] course = {"CSC336"};
+                    cm.getNearbyUsers(course, latitude, longitude, 50);
+                    Intent intent = new Intent(this, ChatActivity.class);
+                    startActivity(intent);
+                }
+                if (v == four) {
+                    String[] course = {"CSC411"};
+                    cm.getNearbyUsers(course, latitude, longitude, 50);
+                    Intent intent = new Intent(this, ChatActivity.class);
+                    startActivity(intent);
+                }
+                if (v == zero) {
+                    String[] course = {"CSC384"};
+                    cm.getNearbyUsers(course, latitude, longitude, 50);
+                    Intent intent = new Intent(this, ChatActivity.class);
+                    startActivity(intent);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
-        if (v == two ){
-            Intent intent = new Intent(this,ChatActivity.class);
-            startActivityForResult(intent, 0);
-        }
-        if (v == three ){
-            Intent intent = new Intent(this,ChatActivity.class);
-            startActivityForResult(intent, 0);
-        }
-        if (v == four ){
-            Intent intent = new Intent(this,ChatActivity.class);
-            startActivityForResult(intent, 0);
-        }
-        if (v == zero ){
-            Intent intent = new Intent(this,ChatActivity.class);
-            startActivityForResult(intent, 0);
-        }
-    }
 }

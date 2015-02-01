@@ -82,6 +82,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     double latitude = gps.getLatitude();
                     double longitude = gps.getLongitude();
 
+                    ((SBApp) getApplication()).setLatitude(latitude);
+                    ((SBApp) getApplication()).setLongitude(longitude);
+
                     // \n is for new line
                     Toast.makeText(getApplicationContext(), "Your Location is - \nLat: " + latitude +
                             "\nLong: " + longitude, Toast.LENGTH_LONG).show();
@@ -186,6 +189,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
             System.out.println("courses registerd");
             mEdit   = (EditText)findViewById(R.id.user);
             name = (TextView) findViewById(R.id.user);
+            ((SBApp)getApplication()).setUsername(mEdit.getText().toString());
+            ((SBApp)getApplication()).setEmail(mEmail);
             Intent intent = new Intent(this, CourseActivity.class);
             startActivityForResult(intent, 0);
         }

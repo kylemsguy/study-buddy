@@ -1,17 +1,39 @@
 package com.kylemsguy.studybuddy;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.kylemsguy.studybuddy.backend.ConnectionManager;
+
+import java.util.List;
+
 
 public class ChatActivity extends ActionBarActivity {
+
+    ConnectionManager cm;
+    List<Integer> nearbyUsers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat2);
+        cm = new ConnectionManager();
+        nearbyUsers = getIntent().getExtras().getIntegerArrayList("server_ids");
+        SharedPreferences prefs = getSharedPreferences(ChatActivity.class.getSimpleName(),
+                Context.MODE_PRIVATE);
+        try {
+            String convo = cm.startConvo("Conversation");
+            cm.addUsertoConvo(convo, nearbyUsers[0]);
+            cm.addUsertoConvo(convo, prefs.getString("server_id", null));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
 
