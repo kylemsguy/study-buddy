@@ -9,6 +9,7 @@ import com.google.android.gms.auth.GoogleAuthUtil;
 import com.google.android.gms.auth.UserRecoverableAuthException;
 
 import com.google.api.services.calendar.Calendar;
+import com.google.api.services.calendar.model.CalendarList;
 
 import java.io.IOException;
 
@@ -37,8 +38,11 @@ public class ListCalendarsTask extends AsyncTask<Void, Void, Calendar> {
             if (token != null) {
                 // Insert the good stuff here.
                 // Use the token to access the user's Google data.
-                Calendar toReturn = new Calendar.Builder(httpTransport, jsonFactory, credentials)
+                Calendar service = new Calendar.Builder(httpTransport, jsonFactory, credentials)
                         .setApplicationName("StudyBuddy").build();
+                String pageToken = null;
+                CalendarList calendarList = service.calendarList().list()
+                        .setPageToken(pageToken).execute();
             }
         } catch (IOException e) {
             // The fetchToken() method handles Google-specific exceptions,
