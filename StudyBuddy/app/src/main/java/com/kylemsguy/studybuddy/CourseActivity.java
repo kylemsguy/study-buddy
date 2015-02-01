@@ -258,6 +258,7 @@ public class CourseActivity extends ActionBarActivity implements View.OnClickLis
         if (v == one ||v == zero||v==two||v==three||v==four ){
             Intent intent = new Intent(this, ChatActivity.class);
             startActivityForResult(intent, 0);
+
         }
     }
 }
