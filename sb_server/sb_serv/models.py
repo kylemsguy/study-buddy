@@ -16,6 +16,7 @@ class User(models.Model):
 	def json_dict(self):
 		return {
 			#'email': self.email,
+			'id': self.id,
 			'name': self.name,
 			'reg_date': self.reg_date.__str__(),
 			#'lat': self.lat,
