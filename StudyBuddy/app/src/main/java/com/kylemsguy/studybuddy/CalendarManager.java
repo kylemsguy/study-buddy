@@ -1,4 +1,4 @@
-package com.kylemsguy.studybuddy.backend;
+package com.kylemsguy.studybuddy;
 
 import com.google.android.gms.auth.GoogleAuthUtil;
 

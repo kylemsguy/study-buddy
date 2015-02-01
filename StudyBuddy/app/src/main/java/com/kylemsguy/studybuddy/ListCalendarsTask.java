@@ -1,4 +1,4 @@
-package com.kylemsguy.studybuddy.backend;
+package com.kylemsguy.studybuddy;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -8,17 +8,22 @@ import com.google.android.gms.auth.GoogleAuthException;
 import com.google.android.gms.auth.GoogleAuthUtil;
 import com.google.android.gms.auth.UserRecoverableAuthException;
 
+import com.google.api.services.calendar.Calendar;
+import com.google.api.services.calendar.model.CalendarList;
+import com.google.api.services.calendar.model.CalendarListEntry;
+
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Created by kyle on 31/01/15.
  */
-public class GetCalendarDataTask extends AsyncTask {
+public class ListCalendarsTask extends AsyncTask<Void, Void, Calendar> {
     Activity mActivity;
     String mScope;
     String mEmail;
 
-    GetCalendarDataTask(Activity activity, String name, String scope) {
+    ListCalendarsTask(Activity activity, String name, String scope) {
         this.mActivity = activity;
         this.mScope = scope;
         this.mEmail = name;
@@ -29,13 +34,19 @@ public class GetCalendarDataTask extends AsyncTask {
      * on the AsyncTask instance.
      */
     @Override
-    protected Void doInBackground(Void... params) {
+    protected Calendar doInBackground(Void... params) {
         try {
             String token = fetchToken();
             if (token != null) {
                 // Insert the good stuff here.
                 // Use the token to access the user's Google data.
-
+                Calendar service = new Calendar.Builder(httpTransport, jsonFactory, credentials)
+                        .setApplicationName("StudyBuddy").build();
+                String pageToken = null;
+                CalendarList calendarList = service.calendarList().list()
+                        .setPageToken(pageToken).execute();
+                List<CalendarListEntry> items = calendarList.getItems();
+                for(CalendarListEntry entry: items)
             }
         } catch (IOException e) {
             // The fetchToken() method handles Google-specific exceptions,

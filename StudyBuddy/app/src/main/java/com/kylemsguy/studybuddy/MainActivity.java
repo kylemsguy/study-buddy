@@ -1,7 +1,10 @@
 package com.kylemsguy.studybuddy;
 
 import android.accounts.AccountManager;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -10,7 +13,6 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.common.AccountPicker;
-import com.kylemsguy.studybuddy.backend.ListCalendarsTask;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -24,11 +26,13 @@ public class MainActivity extends ActionBarActivity {
             = "oauth2:" + USERINFO_SCOPE + " " + GCAL_SCOPE;
 
     private String mEmail = null; // Received from newChooseAccountIntent(); passed to getToken()
+    ConnectivityManager cm = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
     }
 
     private void pickUserAccount() {
@@ -64,6 +68,15 @@ public class MainActivity extends ActionBarActivity {
             } else {
                 Toast.makeText(this, R.string.not_online, Toast.LENGTH_LONG).show();
             }
+        }
+    }
+
+    private boolean isDeviceOnline(){
+        NetworkInfo ni = cm.getActiveNetworkInfo();
+        if(ni == null){
+            return false;
+        } else {
+            return true;
         }
     }
 
